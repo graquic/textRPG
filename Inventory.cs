@@ -36,11 +36,6 @@ namespace textRPG
             return itemCount;
         }
 
-        public void AddItem(IMultiple imultiple)
-        {
-            imultiple.
-        }
-
         
     }
 }
