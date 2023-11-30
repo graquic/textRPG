@@ -34,5 +34,15 @@ namespace TextRPG
                 Data.Instance.player.currentHP = nextHP;
             }
         }
+
+        public override int GetItemCount()
+        {
+            return this.itemCount;
+        }
+
+        public override void AddItemCount()
+        {
+            ++itemCount;
+        }
     }
 }

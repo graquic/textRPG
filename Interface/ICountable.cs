@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextRPG
+namespace textRPG
 {
-    public class IMultiple
+    public interface ICountable
     {
+        public int GetItemCount();
 
+        public int AddItemCount();
     }
 }

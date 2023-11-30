@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,26 +15,35 @@ namespace textRPG
             itemList = new List<Item>();
         }
 
-        public List<Item> itemList;
+        private List<Item> itemList;
 
-        public int CheckItemCount(Item item)
+        public void AddItem(Item item)
         {
-            int itemCount = 0;
-
             if(itemList.Count == 0)
             {
-                return 0;
+                itemList.Add(item);
+                return;
             }
 
-            for (int i = 0; i < itemList.Count; i++)
+            if (item is ICountable countable)
             {
-                if(item == itemList[i])
+
+                for (int i = 0; i < itemList.Count; i++)
                 {
-                    itemCount++;
+                    if ((item.ItemType == itemList[i].ItemType))
+                    {
+                        ICountable temp = (ICountable)itemList[i];
+                        temp.AddItemCount(); 
+
+                        return;
+                    }
                 }
             }
+            else
+            {
+                itemList.Add(item);
+            }
 
-            return itemCount;
         }
 
         

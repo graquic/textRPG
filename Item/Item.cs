@@ -19,6 +19,7 @@ namespace textRPG
 
         public string Name { get { return name; } }
         public int Value { get { return Value; } }
+        public ItemType ItemType { get { return itemType; } }
         
 
         public abstract void Use();
