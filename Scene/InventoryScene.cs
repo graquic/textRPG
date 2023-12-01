@@ -9,14 +9,20 @@ namespace textRPG
 {
     public class InventoryScene : Scene
     {
-        public InventoryScene(Game game) : base(game) 
-        { 
+        public int cursorIndex = 0;
+        int cursorPos;
 
+        bool isNameUpper;
+        bool isValueUpper;
+        public InventoryScene(Game game) : base(game) 
+        {
+            
         }
 
         public override void Render()
         {
             PrintInventory();
+            SetItemCursorPosition(cursorIndex);
         }
 
         public override void Update()
@@ -26,7 +32,7 @@ namespace textRPG
 
         private void PrintInventory()
         {
-            bool[,] map = Data.Instance.map;
+            bool[,] map = new bool[16,16] ;
 
             StringBuilder sb = new StringBuilder();
 
@@ -63,7 +69,7 @@ namespace textRPG
 
 
             Console.SetCursorPosition(0, map.GetLength(0) + 2);
-            Console.Write("ESC : 돌아가기 / Enter : 선택 / ");
+            Console.Write("Q : 이름순 정렬 / W : 값어치순 정렬 / E : 돌아가기 / Enter : 선택 / ↓ : 아래 이동 / ↑ : 위 이동");
 
 
             PrintAllItem();
@@ -109,29 +115,94 @@ namespace textRPG
             ConsoleKeyInfo input = Console.ReadKey();
             ConsoleKey key = input.Key;
 
-            int itemLength = 0;
-
-            switch(key)
+            const int maxIdx = 5;
+            switch (key)
             {
-                case ConsoleKey.UpArrow:
-                    
-                    break;
                 case ConsoleKey.DownArrow:
-                    
+                    ++cursorIndex;
+                    SetItemCursorPosition(cursorIndex);
                     break;
-                case ConsoleKey.Escape:
-                    game.Map();
+                case ConsoleKey.UpArrow:
+                    --cursorIndex;
+                    SetItemCursorPosition(cursorIndex);
                     break;
+                case ConsoleKey.E:
+                    CloseInventory();
+                    break;
+                case ConsoleKey.Enter:
+                    UseItem(cursorIndex);
+                    break;
+                case ConsoleKey.Q: // 이름순 정렬
+                    if(isNameUpper)
+                    {
+                        Data.Instance.player.inventory.itemList.Sort(Data.Instance.player.inventory.CompareNameUpper);
+                        isNameUpper = !isNameUpper;
+                        break;
+                    }
+                    Data.Instance.player.inventory.itemList.Sort(Data.Instance.player.inventory.CompareNameLower);
+                    isNameUpper = !isNameUpper;
+                    break;
+                case ConsoleKey.W: // 값어치순 정렬
+                    if(isValueUpper)
+                    {
+                        Data.Instance.player.inventory.itemList.Sort(Data.Instance.player.inventory.CompareValueUpper);
+                        isValueUpper = !isValueUpper;
+                        break;
+                    }
+                    Data.Instance.player.inventory.itemList.Sort(Data.Instance.player.inventory.CompareValueLower);
+                    isValueUpper = !isValueUpper;
+                    break;
+                default:
+                    return;
                     
             }
-            
 
+            cursorIndex = (cursorIndex + maxIdx) % maxIdx; // TODO : 범위 안을 유지할 수 있게 하는 모듈러 연산 ★★★★★★★★★★★★★★
         }
 
-        private void SetItemCursorPosition()
+
+        private void SetItemCursorPosition(int cursorIndex)
         {
-            Console.SetCursorPosition(3, 3);
+            cursorPos = ( 3 + (2 * cursorIndex) ) % Data.Instance.map.GetLength(0);
+
+            Console.SetCursorPosition(3, cursorPos);
             Console.Write("=>");
         }
+
+        private void UseItem(int cursorIndex) // 일단 사용 구현 
+        {
+            if (Data.Instance.player.inventory.GetItem(cursorIndex) == null )
+            { return; }
+                
+            
+            if (Data.Instance.player.inventory.itemList[cursorIndex] is ICountable countable)
+            {
+                countable.DecreaseItemCount();
+
+                if (Data.Instance.player.inventory.itemList[cursorIndex] is IUseable useable)
+                {
+                    cursorPos = (3 + (2 * cursorIndex)) % Data.Instance.map.GetLength(0);
+
+                    useable.Use();
+
+                    Console.SetCursorPosition(Data.Instance.map.GetLength(1) + 20, cursorPos);
+                    useable.PrintEffect();
+
+                    Thread.Sleep(1000);
+                }
+
+
+                if (countable.GetItemCount() <= 0)
+                {
+                    Data.Instance.player.inventory.itemList.RemoveAt(cursorIndex);
+                }
+
+                
+            }
+
+            
+        }
+
+        
     }
 }

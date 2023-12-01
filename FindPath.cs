@@ -52,7 +52,7 @@ namespace textRPG
                 if (nextNode.currentPos.x == end.x && nextNode.currentPos.y == end.y)
                 {
                     path = new List<Position>();
-
+                    
                     Position point = end;
                     while (!(point.x == start.x && point.y == start.y))
                     {

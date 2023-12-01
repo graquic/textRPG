@@ -24,6 +24,8 @@ namespace textRPG
         public int currentHP;
         public int maxHP;
 
+        public int def;
+
         public int damage;
 
         public int rewardExp;

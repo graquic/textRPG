@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace textRPG
 {
-    public abstract class Consumption : Item , ICountable
+    public abstract class Consumption : Item , ICountable , IUseable
     {
         protected int effect;
 
@@ -17,6 +17,12 @@ namespace textRPG
         public abstract int GetItemCount();
 
         public abstract void AddItemCount();
+
+        public abstract void DecreaseItemCount();
+
+        public abstract void Use();
+
+        public abstract void PrintEffect();
 
     }
 }

@@ -21,8 +21,11 @@ namespace textRPG
         {
             icon = 'S';
             name = "뱀";
-            currentHP = maxHP = 20;
+            currentHP = maxHP = 15;
             damage = 5;
+
+            def = 2;
+
             rewardExp = 100;
         }
         public override void MoveAction()

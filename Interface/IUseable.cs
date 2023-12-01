@@ -5,13 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace textRPG
-{
-    public interface ICountable
+{ 
+    public interface IUseable
     {
-        public int GetItemCount();
+        public void Use();
 
-        public void AddItemCount();
-
-        public void DecreaseItemCount();
+        public void PrintEffect();
     }
 }

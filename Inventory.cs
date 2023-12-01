@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using TextRPG;
 
 namespace textRPG
 {
@@ -12,7 +12,7 @@ namespace textRPG
     {
         public Inventory()
         {
-            itemList = new List<Item>();
+            itemList = new List<Item>() { new RedPotion(), new BluePotion()};
         }
 
         public List<Item> itemList; // 기존
@@ -54,21 +54,48 @@ namespace textRPG
 
         }
 
-        /*public void AddItem2(Item item)
+        public Item GetItem(int cursorIndex)
         {
-            if( item is ICountable countable)
+            if(cursorIndex < 0 || cursorIndex >= itemList.Count)
             {
-                
-                if(countableItemList.Count > 0)
-                {
-                    for (int i = 0; i < countableItemList.Count; i++)
-                    {
-                        if(item.Id == countableItemList[i].Id)
-                    }
-                }
+                return null;
             }
-        }*/
 
-        
+            else
+            {
+                return itemList[cursorIndex];
+            }
+        }
+
+        public int CompareNameUpper(Item a, Item b)
+        {
+            return String.Compare(a.Name, b.Name);
+        }
+
+        public int CompareNameLower(Item a, Item b)
+        {
+            return -String.Compare(a.Name, b.Name);
+        }
+
+        public int CompareValueUpper(Item a, Item b)
+        {
+            if (a.Value < b.Value)
+                return -1;
+            else if (a.Value == b.Value)
+                return 0;
+            else
+                return 1;
+        }
+
+        public int CompareValueLower(Item a, Item b)
+        {
+            if (a.Value < b.Value)
+                return 1;
+            else if (a.Value == b.Value)
+                return 0;
+            else
+                return -1;
+        }
+
     }
 }

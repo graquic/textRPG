@@ -14,7 +14,7 @@ namespace TextRPG
             this.name = "파란 포션";
             this.value = 15;
             this.effect = 10;
-            this.itemCount = 1;
+            this.itemCount = 3;
 
             this.id = ItemType.BluePotion;
 
@@ -36,6 +36,11 @@ namespace TextRPG
             }
         }
 
+        public override void PrintEffect()
+        {
+            Console.Write($"마나가 {effect}만큼 회복되었습니다. 현재 마나는 {Data.Instance.player.currentMP}입니다.");
+        }
+
         public override int GetItemCount()
         {
             return this.itemCount;
@@ -44,6 +49,11 @@ namespace TextRPG
         public override void AddItemCount()
         {
             ++itemCount;
+        }
+
+        public override void DecreaseItemCount()
+        {
+            --itemCount;
         }
     }
 }

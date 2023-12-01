@@ -16,6 +16,9 @@ namespace textRPG
         public int currentHP;
         public int maxHP;
 
+        // 방어력
+        public int def;
+
         // 마나
 
         public int currentMP;
@@ -29,16 +32,21 @@ namespace textRPG
         // 경험치 단계별로 정리된 테이블이 있을 때
         // 현재 경험치가 몇 레벨의 경험치에 해당하는지 검사하여 레벨을 결정.
 
+        public int skillPoint;
+
+
         public int level;
 
         public int damage;
-
-        // Todo : 방어력 선언 (구현하려고 할 시)
 
 
         // 인벤토리
 
         public Inventory inventory;
+
+        // 보유 스킬
+
+        public List<Skill> ownedSkill;
 
         public Player()
         {
@@ -48,12 +56,18 @@ namespace textRPG
             currentMP = 20;
             maxMP = 20;
 
+            def = 0;
+
             exp = 0;
             maxExp = 100;
+
+            skillPoint = 0;
+
             level = 1;
-            damage = 50;
+            damage = 5;
 
             inventory = new Inventory();
+            ownedSkill = new List<Skill>();
 
         }
 
@@ -120,7 +134,9 @@ namespace textRPG
             this.maxHP += 10;
             Console.WriteLine($"최대체력이 10 증가하여 {this.maxHP}가 되었습니다.");
 
-            this.damage += 2;
+            this.damage += 3;
+            this.def += 1;
+
             Console.WriteLine($"데미지가 2 증가하여 {this.damage}가 되었습니다.");
         }
 

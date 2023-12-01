@@ -19,6 +19,9 @@ namespace textRPG
             name = "슬라임";
             currentHP = maxHP = 10;
             damage = 2;
+
+            def = 0;
+
             rewardExp = 50;
 
             dropItemDic = new Dictionary<ItemType, Item>() 

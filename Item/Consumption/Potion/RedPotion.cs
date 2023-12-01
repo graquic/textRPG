@@ -14,7 +14,7 @@ namespace TextRPG
             this.name = "빨간 포션";
             this.value = 10;
             this.effect = 20;
-            this.itemCount = 1;
+            this.itemCount = 3;
 
             this.id = ItemType.RedPotion;
 
@@ -36,6 +36,11 @@ namespace TextRPG
             }
         }
 
+        public override void PrintEffect()
+        {
+            Console.Write($"체력이 {effect}만큼 회복되었습니다. 현재 체력은 {Data.Instance.player.currentHP}입니다");
+        }
+
         public override int GetItemCount()
         {
             return this.itemCount;
@@ -44,6 +49,11 @@ namespace TextRPG
         public override void AddItemCount()
         {
             ++itemCount;
+        }
+
+        public override void DecreaseItemCount()
+        {
+            --itemCount;
         }
     }
 }

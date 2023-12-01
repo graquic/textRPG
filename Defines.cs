@@ -36,6 +36,13 @@ namespace textRPG
         BluePotion,
     }
 
+    public enum SkillType
+    {
+        Fire,
+        HellFire,
+        Smash
+    }
+
     public enum Direction
     {
         Up = 0, 

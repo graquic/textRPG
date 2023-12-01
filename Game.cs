@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using TextRPG;
 
 namespace textRPG
 {
@@ -17,6 +17,7 @@ namespace textRPG
         MapScene mapScene;
         BattleScene battleScene;
         InventoryScene inventoryScene;
+        SkillScene skillScene;
 
         public void Run()
         {
@@ -50,6 +51,7 @@ namespace textRPG
             mapScene = new MapScene(this);
             battleScene = new BattleScene(this);
             inventoryScene = new InventoryScene(this);
+            skillScene = new SkillScene(this);
 
             currentScene = mainMenuScene;
 
@@ -97,6 +99,11 @@ namespace textRPG
         public void Inventory()
         {
             currentScene = inventoryScene;
+        }
+
+        public void Skill()
+        {
+            currentScene = skillScene;
         }
 
 

@@ -41,11 +41,14 @@ namespace textRPG
                 case ConsoleKey.RightArrow:
                     Data.Instance.player.Move(Direction.Right);
                     break;
-                case ConsoleKey.I:
+                case ConsoleKey.I: // break만 하면 돌아왔을 때 진행하므로 return
                     game.Inventory();
+                    return;
+                case ConsoleKey.K:
+                    game.Skill();
+                    return;
+                default:
                     break;
-                    
-
             }
 
             // 몬스터 이동
@@ -96,7 +99,7 @@ namespace textRPG
                 sb.AppendLine();
             }
             Console.ForegroundColor = ConsoleColor.White;
-
+            (int, int) pos = Console.GetCursorPosition();
             Console.WriteLine(sb.ToString());
 
             Console.ForegroundColor = ConsoleColor.Green;
@@ -132,7 +135,17 @@ namespace textRPG
             Console.Write($"HP : {Data.Instance.player.currentHP} / {Data.Instance.player.maxHP}");
 
             Console.SetCursorPosition(Data.Instance.map.GetLength(1) + 3, 3);
-            Console.Write($"Exp : {Data.Instance.player.exp} / {Data.Instance.player.maxExp}");
+            Console.Write($"MP : {Data.Instance.player.currentMP} / {Data.Instance.player.maxMP}");
+
+            Console.SetCursorPosition(Data.Instance.map.GetLength(1) + 3, 4);
+            Console.Write($"DMG : {Data.Instance.player.damage}");
+
+            Console.SetCursorPosition(Data.Instance.map.GetLength(1) + 3, 5);
+            Console.Write($"EXP : {Data.Instance.player.exp} / {Data.Instance.player.maxExp}");
+
+
+            Console.SetCursorPosition(1, Data.Instance.map.GetLength(0) + 1);
+            Console.Write("I : 인벤토리 / K : 스킬창");
         }
     }
 }

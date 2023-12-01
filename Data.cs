@@ -29,6 +29,8 @@ namespace textRPG
 
         public int[] playerLevelTable;
 
+        public Dictionary<SkillType, Skill> skillDic;
+
         public bool isStage1Finished;
 
         
@@ -46,6 +48,8 @@ namespace textRPG
         {
             player = new Player();
             monsters = new List<Monster>();
+
+            skillDic = new Dictionary<SkillType, Skill>() { {SkillType.HellFire, new HellFire() } };
 
 
             playerLevelTable = new int[10]
@@ -95,6 +99,13 @@ namespace textRPG
             Snake snake2 = new Snake();
             snake2.pos = new Position(2, 13);
             monsters.Add(snake2);
+
+        }
+
+        public void LoadLevel2()
+        {
+
+
 
         }
 
