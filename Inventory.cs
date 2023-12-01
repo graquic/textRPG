@@ -15,7 +15,10 @@ namespace textRPG
             itemList = new List<Item>();
         }
 
-        private List<Item> itemList;
+        public List<Item> itemList; // 기존
+
+        // public List<ICountable> countableItemList; // 기존 방식을 사용할 경우 넣을 때와 요소를 출력할 때, 뺄 때 모두 ICountalbe인지 확인해야하는 문제
+        // public List<Item> uncountableItemList;
 
         public void AddItem(Item item)
         {
@@ -30,21 +33,41 @@ namespace textRPG
 
                 for (int i = 0; i < itemList.Count; i++)
                 {
-                    if ((item.ItemType == itemList[i].ItemType))
+                    if ((item.Id == itemList[i].Id))
                     {
-                        ICountable temp = (ICountable)itemList[i];
-                        temp.AddItemCount(); 
+                        countable = (ICountable)itemList[i];
+                        countable.AddItemCount(); 
 
                         return;
                     }
                 }
+
+                itemList.Add(item);
+                return;
+
             }
             else
             {
                 itemList.Add(item);
+                return;
             }
 
         }
+
+        /*public void AddItem2(Item item)
+        {
+            if( item is ICountable countable)
+            {
+                
+                if(countableItemList.Count > 0)
+                {
+                    for (int i = 0; i < countableItemList.Count; i++)
+                    {
+                        if(item.Id == countableItemList[i].Id)
+                    }
+                }
+            }
+        }*/
 
         
     }

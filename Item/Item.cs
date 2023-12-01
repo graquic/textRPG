@@ -9,7 +9,7 @@ namespace textRPG
     public abstract class Item
     {
 
-        protected ItemType itemType;
+        protected ItemType id;
 
         protected string name;
 
@@ -19,7 +19,7 @@ namespace textRPG
 
         public string Name { get { return name; } }
         public int Value { get { return Value; } }
-        public ItemType ItemType { get { return itemType; } }
+        public ItemType Id { get { return id; } }
         
 
         public abstract void Use();

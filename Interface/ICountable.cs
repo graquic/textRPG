@@ -10,6 +10,6 @@ namespace textRPG
     {
         public int GetItemCount();
 
-        public int AddItemCount();
+        public void AddItemCount();
     }
 }

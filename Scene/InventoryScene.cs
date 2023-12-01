@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,7 +21,7 @@ namespace textRPG
 
         public override void Update()
         {
-            Console.ReadLine();
+            Input();
         }
 
         private void PrintInventory()
@@ -39,9 +40,14 @@ namespace textRPG
                         sb.Append("==");
                     }
 
-                    else if (j == 0 || j == map.GetLength(1) - 1)
+                    else if (j == 0)
                     {
                         sb.Append("|");
+                    }
+
+                    else if (j == map.GetLength(1) - 1)
+                    {
+                        sb.Append("  |"); // 임의로 오른쪽 늘려줌
                     }
 
                     else
@@ -55,45 +61,77 @@ namespace textRPG
 
             Console.Write(sb.ToString());
 
+
+            Console.SetCursorPosition(0, map.GetLength(0) + 2);
+            Console.Write("ESC : 돌아가기 / Enter : 선택 / ");
+
+
             PrintAllItem();
+
         }
 
-        public void PrintAllItem()
+        private void PrintAllItem()
         {
-            Console.SetCursorPosition(3, 2);
+            Console.SetCursorPosition(6, 2);
             Console.Write("[현재 인벤토리 목록]");
 
-            if (Data.Instance.player.inventory.itemSet.Count > 0)
+            if(Data.Instance.player.inventory.itemList.Count > 0)
             {
-                foreach (Item item in Data.Instance.player.inventory.itemSet)
-                {
-                    int itemCount = 0;
-                    int loopCount = 0;
+                int loopCount = 0;
 
-                    for (int i = 0; i < Data.Instance.player.inventory.itemList.Count; i++)
+                foreach(Item item in Data.Instance.player.inventory.itemList)
+                {
+                    if(item is ICountable countable)
                     {
-                        if (item == Data.Instance.player.inventory.itemList[i]) // item과 i번째에 있는 요소가 같은 클래스인지를 비교
-                        {
-                            itemCount++;
-                        }
+                        Console.SetCursorPosition(6, 3 + loopCount);
+                        Console.Write($"{item.Name} : {countable.GetItemCount()}");
+
+                        loopCount += 2;
+                        continue;
                     }
 
-                    Console.SetCursorPosition(3, 3 + loopCount);
-                    Console.Write($"{item.Name} : {itemCount}");
-
-                    loopCount += 2;
-
+                    else
+                    {
+                        Console.SetCursorPosition(6, 3 + loopCount);
+                        Console.Write($"{item.Name}");
+                    }
                 }
             }
+        }
 
-            else
+        private void CloseInventory()
+        {
+            game.Map();
+        }
+
+        private void Input()
+        {
+            ConsoleKeyInfo input = Console.ReadKey();
+            ConsoleKey key = input.Key;
+
+            int itemLength = 0;
+
+            switch(key)
             {
-                Console.SetCursorPosition(3, 3);
-                Console.Write("아이템이 존재하지 않습니다");
+                case ConsoleKey.UpArrow:
+                    
+                    break;
+                case ConsoleKey.DownArrow:
+                    
+                    break;
+                case ConsoleKey.Escape:
+                    game.Map();
+                    break;
+                    
             }
-
             
 
+        }
+
+        private void SetItemCursorPosition()
+        {
+            Console.SetCursorPosition(3, 3);
+            Console.Write("=>");
         }
     }
 }

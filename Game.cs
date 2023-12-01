@@ -94,7 +94,7 @@ namespace textRPG
 
         }
 
-        public void OpenInventory()
+        public void Inventory()
         {
             currentScene = inventoryScene;
         }

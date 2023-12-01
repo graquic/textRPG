@@ -14,7 +14,9 @@ namespace textRPG
 
         public int Effect { get { return effect; } }
 
-        public abstract void GetItemCount();
+        public abstract int GetItemCount();
+
+        public abstract void AddItemCount();
 
     }
 }

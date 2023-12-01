@@ -42,7 +42,7 @@ namespace textRPG
                     Data.Instance.player.Move(Direction.Right);
                     break;
                 case ConsoleKey.I:
-                    game.OpenInventory();
+                    game.Inventory();
                     break;
                     
 

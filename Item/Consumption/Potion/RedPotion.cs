@@ -14,8 +14,9 @@ namespace TextRPG
             this.name = "빨간 포션";
             this.value = 10;
             this.effect = 20;
-            this.itemType = ItemType.RedPotion;
-            this.itemCount = 0;
+            this.itemCount = 1;
+
+            this.id = ItemType.RedPotion;
 
             this.dropItem = new DropItem(30, ItemType.RedPotion);
         }
