@@ -7,5 +7,10 @@
             Game game = new Game();
             game.Run();
         }
-    }
+        public void tr()
+        {
+            
+        }
+        
+}
 }

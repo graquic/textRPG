@@ -91,7 +91,7 @@ namespace textRPG
                     break;
             }
 
-            if (false == Data.Instance.map[pos.y, pos.x])
+            if (0 == Data.Instance.map[pos.y, pos.x])
             {
                 Data.Instance.player.pos = prevPos;
             }

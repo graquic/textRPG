@@ -23,7 +23,7 @@ namespace textRPG
         }
         private Data() { }
 
-        public bool[,] map;
+        public int[,] map;
 
         public Player player;
 
@@ -33,11 +33,11 @@ namespace textRPG
 
         public bool isStage1Finished;
 
-        
+
 
         // 몬스터
-        public List<Monster> monsters;
-
+        public List<Monster> monstersLV1;
+        public List<Monster> monstersLV2;
 
 
         // 아이템
@@ -47,7 +47,8 @@ namespace textRPG
         public void Init()
         {
             player = new Player();
-            monsters = new List<Monster>();
+            monstersLV1 = new List<Monster>();
+            monstersLV2 = new List<Monster>();
 
             skillDic = new Dictionary<SkillType, Skill>() { {SkillType.HellFire, new HellFire() } };
 
@@ -58,60 +59,97 @@ namespace textRPG
 
         public void LoadLevel1()
         {
-            map = new bool[,]
+            map = new int[,]
             {
-                { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-                { false, true,  false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  false},
-                { false, true,  true,   true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  false},
-                { false, true,  false,  true,  true, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  false},
-                { false, true,  false, false, false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  false},
-                { false, true,  true,   true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  false},
-                { false, true,  false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  false},
-                { false, true,  false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  false},
-                { false, true,  false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  false},
-                { false, true,  true,   true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  false},
-                { false, true,  false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  false},
-                { false, true,  false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  false},
-                { false, true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  false},
-                { false, true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  false},
-                { false, true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  false},
-                { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                { 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
             };
+            
 
             player.pos = new Position(2, 2);
 
             Slime slime = new Slime();
             slime.pos = new Position(9,9);
-            monsters.Add(slime);
+            monstersLV1.Add(slime);
 
             Slime slime2 = new Slime();
             slime2.pos = new Position(9, 10);
-            monsters.Add(slime2);
+            monstersLV1.Add(slime2);
 
             Slime slime3 = new Slime();
             slime3.pos = new Position(11, 11);
-            monsters.Add(slime3);
+            monstersLV1.Add(slime3);
 
             Snake snake1 = new Snake();
             snake1.pos = new Position(7, 7);
-            monsters.Add(snake1);
+            monstersLV1.Add(snake1);
 
             Snake snake2 = new Snake();
             snake2.pos = new Position(2, 13);
-            monsters.Add(snake2);
+            monstersLV1.Add(snake2);
 
         }
 
         public void LoadLevel2()
         {
+            map = new int[,]
+            {
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                { 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0},
+                { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0},
+                { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+            };
 
+            player.pos = new Position(2, 13);
 
+            Snake snake1 = new Snake();
+            snake1.pos = new Position(3, 3);
+            monstersLV2.Add(snake1);
 
+            Snake snake2 = new Snake();
+            snake2.pos = new Position(5, 8);
+            monstersLV2.Add(snake2);
+
+            Snake snake3 = new Snake();
+            snake1.pos = new Position(11, 7);
+            monstersLV2.Add(snake3);
+
+            Snake snake4 = new Snake();
+            snake2.pos = new Position(12, 12);
+            monstersLV2.Add(snake4);
+
+            
         }
 
         public Monster GetMonsterInPosition(Position pos)
         {
-            foreach(Monster monster in monsters)
+            foreach(Monster monster in monstersLV1)
             {
                 if(pos.x == monster.pos.x && pos.y == monster.pos.y)
                 {
@@ -124,7 +162,7 @@ namespace textRPG
 
         public void CheckRemainMonster()
         {
-            if(monsters.Count == 0)
+            if(monstersLV1.Count == 0)
             {
                 isStage1Finished = true;
             }

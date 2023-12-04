@@ -60,7 +60,7 @@ namespace textRPG
                     break;
             }
 
-            if (Data.Instance.map[pos.y, pos.x] == false)
+            if (Data.Instance.map[pos.y, pos.x] == 0)
             {
                 pos = prevPos;
             }

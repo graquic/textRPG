@@ -25,7 +25,7 @@ namespace textRPG
             
         }
 
-        public Direction PathFinding(bool[,] tileMap, in Position start, in Position end, List<Position> path)
+        public Direction PathFinding(int[,] tileMap, in Position start, in Position end, List<Position> path)
         {
 
             int ySize = tileMap.GetLength(0);
@@ -76,7 +76,7 @@ namespace textRPG
                     if (x < 0 || x >= xSize || y < 0 || y >= ySize)
                         continue;
                     // 탐색할 수 없는 정점일 경우
-                    else if (tileMap[y, x] == false)
+                    else if (tileMap[y, x] == 0)
                         continue;
                     // 이미 방문한 정점일 경우
                     else if (visited[y, x])

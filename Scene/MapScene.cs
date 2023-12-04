@@ -51,8 +51,14 @@ namespace textRPG
                     break;
             }
 
+            if(Data.Instance.map[Data.Instance.player.pos.y,Data.Instance.player.pos.x] == 2)
+            {
+                Data.Instance.LoadLevel2();
+            }
+            
+
             // 몬스터 이동
-            foreach(Monster monster in Data.Instance.monsters)
+            foreach(Monster monster in Data.Instance.monstersLV1)
             {
                 monster.MoveAction();
             }
@@ -86,9 +92,14 @@ namespace textRPG
             {
                 for (int x = 0; x < data.map.GetLength(1); x++)
                 {
-                    if(data.map[y, x])
+                    if(data.map[y, x] == 1)
                     {
                         sb.Append(" ");
+                    }
+
+                    else if (data.map[y, x] == 2)
+                    {
+                        sb.Append("E");
                     }
 
                     else
@@ -104,7 +115,7 @@ namespace textRPG
 
             Console.ForegroundColor = ConsoleColor.Green;
 
-            foreach(Monster monster in Data.Instance.monsters)
+            foreach(Monster monster in Data.Instance.monstersLV1)
             {
                 Console.SetCursorPosition(monster.pos.x, monster.pos.y);
                 Console.Write(monster.icon);
@@ -119,8 +130,11 @@ namespace textRPG
 
             if (Data.Instance.isStage1Finished) // TODO : 몬스터가 다 처리됐을 경우 다음 맵으로 연결 혹은 다른 조건 생성
             {
-                Console.SetCursorPosition(13, 13);
-                Console.Write("E");
+                // Console.SetCursorPosition(13, 13);
+                // Console.Write("E");
+
+                Data.Instance.map[13, 13] = 2;
+
 
                 //sb.Append("▣");
             }

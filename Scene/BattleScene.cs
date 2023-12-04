@@ -167,7 +167,7 @@ namespace textRPG
 
             monster.DropItem();
 
-            Data.Instance.monsters.Remove(monster); ;
+            Data.Instance.monstersLV1.Remove(monster); ;
 
 
             game.Map();
